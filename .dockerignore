@@ -1,0 +1,6 @@
+.git
+secrets
+backups
+evidence
+__pycache__
+*.pyc

@@ -1,0 +1,91 @@
+name: course
+services:
+  edge:
+    image: ${REGISTRY:-course}/edge:${IMAGE_TAG:-local}
+    build: ./edge
+    ports: ["80:80", "443:443"]
+    secrets: [tls_cert, tls_key]
+    networks: [authnet]
+    depends_on: [api, keycloak]
+    restart: unless-stopped
+  api:
+    image: ${REGISTRY:-course}/api:${IMAGE_TAG:-local}
+    build: ./api
+    secrets: [app_db_password, manager_client_secret]
+    networks: [authnet, backnet]
+    depends_on:
+      app-db: {condition: service_healthy}
+    restart: unless-stopped
+  keycloak:
+    image: ${REGISTRY:-course}/keycloak:${IMAGE_TAG:-local}
+    build: ./keycloak
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://identity-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_HOSTNAME: https://iam.lab.test/auth
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_HTTP_MANAGEMENT_RELATIVE_PATH: /
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: xforwarded
+      KC_BOOTSTRAP_ADMIN_USERNAME: bootstrap-admin
+    secrets: [identity_db_password, bootstrap_admin_password]
+    networks: [authnet, dbnet]
+    depends_on:
+      identity-db: {condition: service_healthy}
+    restart: unless-stopped
+  app-db:
+    image: ${REGISTRY:-course}/app-db:${IMAGE_TAG:-local}
+    build: ./database
+    environment:
+      POSTGRES_DB: audit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/app_db_admin_password
+    secrets: [app_db_password, app_db_admin_password]
+    volumes: [app_data:/var/lib/postgresql/data]
+    networks: [backnet]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d audit"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  identity-db:
+    image: ${REGISTRY:-course}/identity-db:${IMAGE_TAG:-local}
+    build: ./identity-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/identity_db_admin_password
+    secrets: [identity_db_password, identity_db_admin_password]
+    volumes: [identity_data:/var/lib/postgresql/data]
+    networks: [dbnet]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  bootstrap:
+    profiles: [tools]
+    image: ${REGISTRY:-course}/api:${IMAGE_TAG:-local}
+    command: [python, /app/bootstrap.py]
+    secrets: [bootstrap_admin_password, manager_client_secret, demo_password]
+    networks: [authnet]
+networks:
+  authnet: {}
+  backnet: {internal: true}
+  dbnet: {internal: true}
+volumes:
+  app_data: {}
+  identity_data: {}
+secrets:
+  app_db_password: {file: ./secrets/app_db_password.txt}
+  app_db_admin_password: {file: ./secrets/app_db_admin_password.txt}
+  identity_db_password: {file: ./secrets/identity_db_password.txt}
+  identity_db_admin_password: {file: ./secrets/identity_db_admin_password.txt}
+  manager_client_secret: {file: ./secrets/manager_client_secret.txt}
+  bootstrap_admin_password: {file: ./secrets/bootstrap_admin_password.txt}
+  demo_password: {file: ./secrets/demo_password.txt}
+  tls_cert: {file: ./secrets/tls.crt}
+  tls_key: {file: ./secrets/tls.key}

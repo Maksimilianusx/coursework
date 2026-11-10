@@ -1,0 +1,102 @@
+version: "3.8"
+services:
+  edge:
+    image: ${REGISTRY}/edge:${IMAGE_TAG}
+    ports:
+      - {target: 80, published: 80, protocol: tcp, mode: ingress}
+      - {target: 443, published: 443, protocol: tcp, mode: ingress}
+    secrets: [tls_cert, tls_key]
+    networks: [authnet]
+    deploy:
+      replicas: 1
+      restart_policy: {condition: on-failure, delay: 5s}
+      update_config: {parallelism: 1, order: start-first, failure_action: rollback}
+      resources:
+        limits: {memory: 256M}
+  api:
+    image: ${REGISTRY}/api:${IMAGE_TAG}
+    secrets: [app_db_password, manager_client_secret]
+    networks: [authnet, backnet]
+    deploy:
+      replicas: 2
+      placement: {max_replicas_per_node: 1}
+      restart_policy: {condition: on-failure, delay: 5s}
+      update_config: {parallelism: 1, order: start-first, failure_action: rollback}
+      resources:
+        limits: {memory: 256M}
+  keycloak:
+    image: ${REGISTRY}/keycloak:${IMAGE_TAG}
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://identity-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_HOSTNAME: https://iam.lab.test/auth
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_HTTP_MANAGEMENT_RELATIVE_PATH: /
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: xforwarded
+      KC_BOOTSTRAP_ADMIN_USERNAME: bootstrap-admin
+    secrets: [identity_db_password, bootstrap_admin_password]
+    networks: [authnet, dbnet]
+    deploy:
+      replicas: 1
+      placement: {max_replicas_per_node: 1}
+      restart_policy: {condition: on-failure, delay: 15s}
+      update_config: {parallelism: 1, order: stop-first, failure_action: rollback}
+      resources:
+        limits: {memory: 1536M}
+        reservations: {memory: 1024M}
+  app-db:
+    image: ${REGISTRY}/app-db:${IMAGE_TAG}
+    environment:
+      POSTGRES_DB: audit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/app_db_admin_password
+    secrets: [app_db_password, app_db_admin_password]
+    volumes: [app_data:/var/lib/postgresql/data]
+    networks: [backnet]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d audit"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    deploy:
+      replicas: 1
+      placement: {constraints: [node.labels.state == primary]}
+      resources:
+        limits: {memory: 512M}
+  identity-db:
+    image: ${REGISTRY}/identity-db:${IMAGE_TAG}
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/identity_db_admin_password
+    secrets: [identity_db_password, identity_db_admin_password]
+    volumes: [identity_data:/var/lib/postgresql/data]
+    networks: [dbnet]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    deploy:
+      replicas: 1
+      placement: {constraints: [node.labels.state == primary]}
+      resources:
+        limits: {memory: 512M}
+networks:
+  authnet: {driver: overlay, attachable: true, driver_opts: {encrypted: ""}}
+  backnet: {driver: overlay, internal: true, driver_opts: {encrypted: ""}}
+  dbnet: {driver: overlay, internal: true, driver_opts: {encrypted: ""}}
+volumes:
+  app_data: {}
+  identity_data: {}
+secrets:
+  app_db_password: {external: true, name: course_app_db_password}
+  app_db_admin_password: {external: true, name: course_app_db_admin_password}
+  identity_db_password: {external: true, name: course_identity_db_password}
+  identity_db_admin_password: {external: true, name: course_identity_db_admin_password}
+  manager_client_secret: {external: true, name: course_manager_client_secret}
+  bootstrap_admin_password: {external: true, name: course_bootstrap_admin_password}
+  tls_cert: {external: true, name: course_tls_cert}
+  tls_key: {external: true, name: course_tls_key}

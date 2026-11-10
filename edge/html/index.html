@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Управление учетными записями</title><link rel="stylesheet" href="style.css"></head>
+<body><header><div><p class="eyebrow">Учебная инфраструктура</p><h1>Учетные записи пользователей</h1></div><div><button id="login">Войти</button><button id="logout" hidden>Выйти</button><p id="identity"></p></div></header>
+<main><p id="status" role="status">Для доступа войдите через Keycloak.</p>
+<section id="workspace" hidden>
+<h2>Управляемые учетные записи</h2><p>Права изменения проверяет сервер. Администраторы realm и служебные аккаунты здесь не отображаются.</p>
+<div class="tools"><button id="reload">Обновить</button><button id="previous">Предыдущие 50</button><button id="next">Следующие 50</button></div>
+<div class="table-wrap"><table><thead><tr><th>Логин</th><th>Имя</th><th>Почта</th><th>Статус</th><th>Действия</th></tr></thead><tbody id="users"></tbody></table></div>
+<h2 id="form-title">Создание учетной записи</h2>
+<form id="account"><label>Логин<input name="username" required pattern="[a-z][a-z0-9._-]{2,31}" maxlength="32"></label><label>Имя<input name="firstName" maxlength="100"></label><label>Фамилия<input name="lastName" maxlength="100"></label><label>Почта<input name="email" type="email" maxlength="100"></label><label class="check"><input name="enabled" type="checkbox">Разрешить вход</label><p>Новая учетная запись создается без пароля. Первичный временный пароль задает администратор через Keycloak, затем пользователь меняет его при входе.</p><button type="submit">Сохранить</button><button type="button" id="cancel">Очистить</button></form>
+<h2>Журнал административных операций</h2><button id="audit">Обновить журнал</button><div class="table-wrap"><table><thead><tr><th>Время</th><th>Операция</th><th>Объект</th><th>Состояние</th></tr></thead><tbody id="operations"></tbody></table></div>
+</section></main><footer>Курсовая работа · Шкуров Максим Дмитриевич · ИКБО-10-25 · 2026</footer><script src="app.js" defer></script></body></html>

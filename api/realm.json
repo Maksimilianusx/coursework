@@ -1,0 +1,40 @@
+{
+  "realm": "course",
+  "enabled": true,
+  "displayName": "Учебная инфраструктура учетных записей",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": false,
+  "bruteForceProtected": true,
+  "failureFactor": 5,
+  "waitIncrementSeconds": 60,
+  "maxFailureWaitSeconds": 900,
+  "passwordPolicy": "length(12) and digits(1) and lowerCase(1) and upperCase(1) and specialChars(1) and notUsername",
+  "accessTokenLifespan": 120,
+  "ssoSessionIdleTimeout": 900,
+  "ssoSessionMaxLifespan": 3600,
+  "eventsEnabled": true,
+  "eventsExpiration": 604800,
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": false,
+  "roles": {"realm": [{"name": "operator"}, {"name": "viewer"}]},
+  "clients": [
+    {
+      "clientId": "account-ui", "enabled": true, "protocol": "openid-connect",
+      "publicClient": true, "standardFlowEnabled": true, "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false, "serviceAccountsEnabled": false,
+      "defaultClientScopes": ["web-origins", "acr", "basic", "roles", "profile", "email"],
+      "redirectUris": ["https://iam.lab.test/"],
+      "webOrigins": ["https://iam.lab.test"],
+      "attributes": {"pkce.code.challenge.method": "S256", "post.logout.redirect.uris": "https://iam.lab.test/"},
+      "protocolMappers": [{"name": "account-api-audience", "protocol": "openid-connect", "protocolMapper": "oidc-audience-mapper", "config": {"included.custom.audience": "account-api", "access.token.claim": "true", "id.token.claim": "false"}}]
+    },
+    {
+      "clientId": "account-manager", "enabled": true, "protocol": "openid-connect",
+      "publicClient": false, "standardFlowEnabled": false, "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true, "defaultClientScopes": ["roles"]
+    }
+  ]
+}
