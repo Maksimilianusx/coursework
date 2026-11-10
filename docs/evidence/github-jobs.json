@@ -1,0 +1,257 @@
+[
+  {
+    "name": "check",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/Maksimilianusx/coursework/actions/runs/42827911772/job/129869960433",
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1,
+        "started_at": "2026-11-10T13:48:33Z",
+        "completed_at": "2026-11-10T13:48:34Z"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2,
+        "started_at": "2026-11-10T13:48:34Z",
+        "completed_at": "2026-11-10T13:48:35Z"
+      },
+      {
+        "name": "Run actions/setup-python@v5",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3,
+        "started_at": "2026-11-10T13:48:35Z",
+        "completed_at": "2026-11-10T13:48:35Z"
+      },
+      {
+        "name": "Run python scripts/verify_static.py && python -m unittest discover -s tests -p test_core.py -v",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4,
+        "started_at": "2026-11-10T13:48:35Z",
+        "completed_at": "2026-11-10T13:48:35Z"
+      },
+      {
+        "name": "Validate JavaScript",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 5,
+        "started_at": "2026-11-10T13:48:35Z",
+        "completed_at": "2026-11-10T13:48:36Z"
+      },
+      {
+        "name": "Prepare disposable CI secrets for Compose validation",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 6,
+        "started_at": "2026-11-10T13:48:36Z",
+        "completed_at": "2026-11-10T13:48:36Z"
+      },
+      {
+        "name": "Run docker compose config --quiet",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7,
+        "started_at": "2026-11-10T13:48:36Z",
+        "completed_at": "2026-11-10T13:48:36Z"
+      },
+      {
+        "name": "Run REGISTRY=example.invalid/course IMAGE_TAG=validation docker stack config -c stack.yml >/dev/null",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 8,
+        "started_at": "2026-11-10T13:48:36Z",
+        "completed_at": "2026-11-10T13:48:36Z"
+      },
+      {
+        "name": "Build Compose images and import application",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 9,
+        "started_at": "2026-11-10T13:48:36Z",
+        "completed_at": "2026-11-10T13:49:00Z"
+      },
+      {
+        "name": "Run HTTP and JWT component tests",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 10,
+        "started_at": "2026-11-10T13:49:00Z",
+        "completed_at": "2026-11-10T13:49:01Z"
+      },
+      {
+        "name": "Start real integration environment",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 11,
+        "started_at": "2026-11-10T13:49:01Z",
+        "completed_at": "2026-11-10T13:49:38Z"
+      },
+      {
+        "name": "Verify real OIDC CRUD RBAC and audit",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 12,
+        "started_at": "2026-11-10T13:49:38Z",
+        "completed_at": "2026-11-10T13:49:40Z"
+      },
+      {
+        "name": "Check readiness after internal service restart",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 13,
+        "started_at": "2026-11-10T13:49:40Z",
+        "completed_at": "2026-11-10T13:50:01Z"
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 14,
+        "started_at": "2026-11-10T13:50:01Z",
+        "completed_at": "2026-11-10T13:50:03Z"
+      },
+      {
+        "name": "Save the exact images that passed integration tests",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 15,
+        "started_at": "2026-11-10T13:50:03Z",
+        "completed_at": "2026-11-10T13:50:18Z"
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 16,
+        "started_at": "2026-11-10T13:50:18Z",
+        "completed_at": "2026-11-10T13:50:23Z"
+      },
+      {
+        "name": "Stop disposable integration environment",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 17,
+        "started_at": "2026-11-10T13:50:23Z",
+        "completed_at": "2026-11-10T13:50:26Z"
+      },
+      {
+        "name": "Post Run actions/setup-python@v5",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 33,
+        "started_at": "2026-11-10T13:50:26Z",
+        "completed_at": "2026-11-10T13:50:26Z"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 34,
+        "started_at": "2026-11-10T13:50:26Z",
+        "completed_at": "2026-11-10T13:50:26Z"
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 35,
+        "started_at": "2026-11-10T13:50:26Z",
+        "completed_at": "2026-11-10T13:50:26Z"
+      }
+    ]
+  },
+  {
+    "name": "build",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/Maksimilianusx/coursework/actions/runs/42827911772/job/129871024726",
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1,
+        "started_at": "2026-11-10T13:50:33Z",
+        "completed_at": "2026-11-10T13:50:34Z"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2,
+        "started_at": "2026-11-10T13:50:34Z",
+        "completed_at": "2026-11-10T13:50:35Z"
+      },
+      {
+        "name": "Run docker/login-action@v3",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3,
+        "started_at": "2026-11-10T13:50:35Z",
+        "completed_at": "2026-11-10T13:50:35Z"
+      },
+      {
+        "name": "Run actions/download-artifact@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4,
+        "started_at": "2026-11-10T13:50:35Z",
+        "completed_at": "2026-11-10T13:50:52Z"
+      },
+      {
+        "name": "Run gunzip -c tested-images.tar.gz | docker load",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 5,
+        "started_at": "2026-11-10T13:50:52Z",
+        "completed_at": "2026-11-10T13:51:01Z"
+      },
+      {
+        "name": "Publish the tested images with revision tags",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 6,
+        "started_at": "2026-11-10T13:51:01Z",
+        "completed_at": "2026-11-10T13:51:14Z"
+      },
+      {
+        "name": "Post Run docker/login-action@v3",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 11,
+        "started_at": "2026-11-10T13:51:14Z",
+        "completed_at": "2026-11-10T13:51:14Z"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 12,
+        "started_at": "2026-11-10T13:51:14Z",
+        "completed_at": "2026-11-10T13:51:14Z"
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 13,
+        "started_at": "2026-11-10T13:51:14Z",
+        "completed_at": "2026-11-10T13:51:14Z"
+      }
+    ]
+  },
+  {
+    "name": "deploy",
+    "status": "completed",
+    "conclusion": "skipped",
+    "html_url": "https://github.com/Maksimilianusx/coursework/actions/runs/42827911772/job/129871446551",
+    "steps": []
+  }
+]

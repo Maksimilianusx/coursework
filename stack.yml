@@ -36,8 +36,9 @@ services:
       KC_HTTP_ENABLED: "true"
       KC_PROXY_HEADERS: xforwarded
       KC_BOOTSTRAP_ADMIN_USERNAME: bootstrap-admin
+      KC_CACHE_EMBEDDED_NETWORK_BIND_ADDRESS: 'match-address:10\.42\.10\..*'
     secrets: [identity_db_password, bootstrap_admin_password]
-    networks: [authnet, dbnet]
+    networks: [authnet, dbnet, cachenet]
     deploy:
       replicas: 1
       placement: {max_replicas_per_node: 1}
@@ -88,6 +89,12 @@ networks:
   authnet: {driver: overlay, attachable: true, driver_opts: {encrypted: ""}}
   backnet: {driver: overlay, internal: true, driver_opts: {encrypted: ""}}
   dbnet: {driver: overlay, internal: true, driver_opts: {encrypted: ""}}
+  cachenet:
+    driver: overlay
+    internal: true
+    driver_opts: {encrypted: ""}
+    ipam:
+      config: [{subnet: 10.42.10.0/24}]
 volumes:
   app_data: {}
   identity_data: {}

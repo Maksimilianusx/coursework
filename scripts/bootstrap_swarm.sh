@@ -2,7 +2,7 @@
 set -eu
 : "${REGISTRY:?Set REGISTRY}"
 : "${IMAGE_TAG:?Set IMAGE_TAG}"
-docker service create --name course-bootstrap --restart-condition none \
+docker service create --detach --name course-bootstrap --restart-condition none --no-healthcheck \
   --network course_authnet \
   --secret source=course_bootstrap_admin_password,target=bootstrap_admin_password \
   --secret source=course_manager_client_secret,target=manager_client_secret \

@@ -1,0 +1,46 @@
+{
+  "started_at": "2026-11-10T14:22:45.592525+00:00",
+  "environment": "Three Docker-in-Docker 29.7.1 managers on one Windows/WSL2 host; no cloud or physical fault isolation",
+  "checks": [
+    {
+      "name": "Three managers",
+      "passed": true,
+      "detail": "ID                            HOSTNAME                     STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION\n1a60jy5oawp7udex563mjnaw4 *   course-swarm-qa-11101413-1   Ready     Active         Leader           29.7.1\nrifbhjaq9e14m6th0nrzlhxlw     course-swarm-qa-11101413-2   Ready     Active         Reachable        29.7.1\n4ml29b0t891ne90ffmy0va3ub     course-swarm-qa-11101413-3   Ready     Active         Reachable        29.7.1\n"
+    },
+    {
+      "name": "Seven replicas",
+      "passed": true,
+      "detail": "ID             NAME                 MODE         REPLICAS               IMAGE                      PORTS\nq8kmbczd3qyq   course_api           replicated   2/2 (max 1 per node)   course/api:local           \n66bew8xt6czf   course_app-db        replicated   1/1                    course/app-db:local        \n6clhkxlktot3   course_edge          replicated   1/1                    course/edge:local          *:80->80/tcp, *:443->443/tcp\ngehhs1uv69qc   course_identity-db   replicated   1/1                    course/identity-db:local   \nlig8gvcgj0n4   course_keycloak      replicated   2/2 (max 1 per node)   course/keycloak:local      \n"
+    },
+    {
+      "name": "Keycloak cluster",
+      "passed": true,
+      "detail": "Two members shown by ISPN000094 on both replicas; bind network 10.42.10.0/24"
+    },
+    {
+      "name": "Real HTTPS OIDC CRUD RBAC audit",
+      "passed": true,
+      "detail": "15/15 checks passed; all temporary users removed"
+    },
+    {
+      "name": "API replacement",
+      "passed": true,
+      "detail": "28.5 s until 2/2 replicas; user outage duration not measured"
+    },
+    {
+      "name": "HTTPS after task replacement",
+      "passed": true,
+      "detail": "HTTP 200"
+    }
+  ],
+  "nodes": "ID                            HOSTNAME                     STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION\n1a60jy5oawp7udex563mjnaw4 *   course-swarm-qa-11101413-1   Ready     Active         Leader           29.7.1\nrifbhjaq9e14m6th0nrzlhxlw     course-swarm-qa-11101413-2   Ready     Active         Reachable        29.7.1\n4ml29b0t891ne90ffmy0va3ub     course-swarm-qa-11101413-3   Ready     Active         Reachable        29.7.1\n",
+  "services": "ID             NAME                 MODE         REPLICAS               IMAGE                      PORTS\nq8kmbczd3qyq   course_api           replicated   2/2 (max 1 per node)   course/api:local           \n66bew8xt6czf   course_app-db        replicated   1/1                    course/app-db:local        \n6clhkxlktot3   course_edge          replicated   1/1                    course/edge:local          *:80->80/tcp, *:443->443/tcp\ngehhs1uv69qc   course_identity-db   replicated   1/1                    course/identity-db:local   \nlig8gvcgj0n4   course_keycloak      replicated   2/2 (max 1 per node)   course/keycloak:local      \n",
+  "tasks": "ID             NAME                   IMAGE                      NODE                         DESIRED STATE   CURRENT STATE                ERROR     PORTS\nq3zjjw7kmu6v   course_api.1           course/api:local           course-swarm-qa-11101413-2   Running         Running 5 minutes ago                  \n6gs0j1ms69m0   course_api.2           course/api:local           course-swarm-qa-11101413-1   Running         Running 5 minutes ago                  \nkberto5kezkv   course_app-db.1        course/app-db:local        course-swarm-qa-11101413-1   Running         Running 5 minutes ago                  \n8qwckcwt28a2   course_edge.1          course/edge:local          course-swarm-qa-11101413-2   Running         Running 5 minutes ago                  \nxt66u7l5nxmq   course_identity-db.1   course/identity-db:local   course-swarm-qa-11101413-1   Running         Running 5 minutes ago                  \nzots45tybw4j   course_keycloak.1      course/keycloak:local      course-swarm-qa-11101413-3   Running         Running 2 minutes ago                  \nmqb427s88gfj   course_keycloak.2      course/keycloak:local      course-swarm-qa-11101413-2   Running         Running about a minute ago             \n",
+  "keycloak_cluster_lines": [
+    "course_keycloak.2.mqb427s88gfj@course-swarm-qa-11101413-2    | 2026-11-10 14:21:00,194 INFO  [org.infinispan.CLUSTER] (db-index-checker) ISPN000094: Received new cluster view for channel ISPN: [fa1e9f6c6b23-24304(v=16.0.15)|1] (2) [fa1e9f6c6b23-24304(v=16.0.15), 2d84b96a3e6b-31664(v=16.0.15)]",
+    "course_keycloak.1.zots45tybw4j@course-swarm-qa-11101413-3    | 2026-11-10 14:21:00,116 INFO  [org.infinispan.CLUSTER] (jgroups-59,fa1e9f6c6b23-24304(v=16.0.15)) ISPN000094: Received new cluster view for channel ISPN: [fa1e9f6c6b23-24304(v=16.0.15)|1] (2) [fa1e9f6c6b23-24304(v=16.0.15), 2d84b96a3e6b-31664(v=16.0.15)]"
+  ],
+  "api_replacement_seconds": 28.5,
+  "passed": true,
+  "finished_at": "2026-11-10T14:23:25.741210+00:00"
+}
