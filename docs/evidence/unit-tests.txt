@@ -1,0 +1,45 @@
+test_expired_is_401 (test_api.HttpJwtTests.test_expired_is_401) ... [2026-11-10 13:40:10,687] WARNING in app: jwt_rejected reason=ExpiredSignatureError
+ok
+test_malformed_is_401 (test_api.HttpJwtTests.test_malformed_is_401) ... [2026-11-10 13:40:10,689] WARNING in app: jwt_rejected reason=DecodeError
+ok
+test_no_exp_is_401 (test_api.HttpJwtTests.test_no_exp_is_401) ... [2026-11-10 13:40:10,690] WARNING in app: jwt_rejected reason=MissingRequiredClaimError
+ok
+test_no_token_is_401 (test_api.HttpJwtTests.test_no_token_is_401) ... ok
+test_operator_identity_exposes_write_permission (test_api.HttpJwtTests.test_operator_identity_exposes_write_permission) ... ok
+test_operator_role_injection_is_400 (test_api.HttpJwtTests.test_operator_role_injection_is_400) ... ok
+test_unaccepted_algorithm_is_401 (test_api.HttpJwtTests.test_unaccepted_algorithm_is_401) ... [2026-11-10 13:40:10,694] WARNING in app: jwt_rejected reason=InvalidAlgorithmError
+ok
+test_unmanaged_account_is_404 (test_api.HttpJwtTests.test_unmanaged_account_is_404) ... ok
+test_valid_viewer_reads_identity (test_api.HttpJwtTests.test_valid_viewer_reads_identity) ... ok
+test_viewer_cannot_post_even_with_valid_signature (test_api.HttpJwtTests.test_viewer_cannot_post_even_with_valid_signature) ... ok
+test_wrong_audience_is_401 (test_api.HttpJwtTests.test_wrong_audience_is_401) ... [2026-11-10 13:40:10,701] WARNING in app: jwt_rejected reason=InvalidAudienceError
+ok
+test_wrong_issuer_is_401 (test_api.HttpJwtTests.test_wrong_issuer_is_401) ... [2026-11-10 13:40:10,703] WARNING in app: jwt_rejected reason=InvalidIssuerError
+ok
+test_wrong_signature_is_401 (test_api.HttpJwtTests.test_wrong_signature_is_401) ... [2026-11-10 13:40:10,705] WARNING in app: jwt_rejected reason=InvalidSignatureError
+ok
+test_managed_account_allowed (test_core.AccessTests.test_managed_account_allowed) ... ok
+test_missing_role_denied (test_core.AccessTests.test_missing_role_denied) ... ok
+test_operator_writes (test_core.AccessTests.test_operator_writes) ... ok
+test_string_role_denied (test_core.AccessTests.test_string_role_denied) ... ok
+test_unmanaged_account_denied (test_core.AccessTests.test_unmanaged_account_denied) ... ok
+test_viewer_cannot_write (test_core.AccessTests.test_viewer_cannot_write) ... ok
+test_viewer_reads (test_core.AccessTests.test_viewer_reads) ... ok
+test_bad_email_denied (test_core.ValidationTests.test_bad_email_denied) ... ok
+test_bad_username_denied (test_core.ValidationTests.test_bad_username_denied) ... ok
+test_control_char_denied (test_core.ValidationTests.test_control_char_denied) ... ok
+test_create_disabled_by_default (test_core.ValidationTests.test_create_disabled_by_default) ... ok
+test_create_stamps_marker (test_core.ValidationTests.test_create_stamps_marker) ... ok
+test_id_path_injection_denied (test_core.ValidationTests.test_id_path_injection_denied) ... ok
+test_invalid_json_denied (test_core.ValidationTests.test_invalid_json_denied) ... ok
+test_missing_username_denied (test_core.ValidationTests.test_missing_username_denied) ... ok
+test_oversize_denied (test_core.ValidationTests.test_oversize_denied) ... ok
+test_privilege_injection_denied (test_core.ValidationTests.test_privilege_injection_denied) ... ok
+test_public_user_does_not_leak_credentials (test_core.ValidationTests.test_public_user_does_not_leak_credentials) ... ok
+test_username_immutable (test_core.ValidationTests.test_username_immutable) ... ok
+test_wrong_boolean_denied (test_core.ValidationTests.test_wrong_boolean_denied) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.100s
+
+OK

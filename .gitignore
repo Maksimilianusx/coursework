@@ -1,7 +1,7 @@
 .env
 secrets/
 backups/
-evidence/
+/evidence/
 __pycache__/
 *.pyc
 .venv/

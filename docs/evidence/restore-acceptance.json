@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-10T13:31:55.466405+00:00",
+  "checks": [
+    {
+      "name": "Backup audit",
+      "passed": true,
+      "detail": "4197 bytes; custom format"
+    },
+    {
+      "name": "Backup keycloak",
+      "passed": true,
+      "detail": "268351 bytes; custom format"
+    },
+    {
+      "name": "Restore audit",
+      "passed": true,
+      "detail": "SHA-256 of ordered control rows matches"
+    },
+    {
+      "name": "Restore keycloak",
+      "passed": true,
+      "detail": "SHA-256 of ordered control rows matches"
+    },
+    {
+      "name": "Persistence audit",
+      "passed": true,
+      "detail": "control rows unchanged after API and Keycloak restart"
+    },
+    {
+      "name": "Persistence keycloak",
+      "passed": true,
+      "detail": "control rows unchanged after API and Keycloak restart"
+    },
+    {
+      "name": "HTTPS after restart",
+      "passed": true,
+      "detail": "readiness HTTP 200"
+    }
+  ],
+  "passed": true
+}

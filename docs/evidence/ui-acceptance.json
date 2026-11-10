@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-10",
+  "passed": true,
+  "checks": [
+    "Operator OIDC browser sign-in",
+    "Create defence.student through form",
+    "Edit profile through form",
+    "Disable preserves first name last name and email",
+    "Audit visible",
+    "Viewer OIDC browser sign-in",
+    "Viewer write form and edit controls absent"
+  ],
+  "screenshots": [
+    "01-login.jpg",
+    "02-operator.jpg",
+    "03-create-form.jpg",
+    "04-disabled-audit.jpg",
+    "05-audit.jpg",
+    "06-viewer.jpg"
+  ]
+}

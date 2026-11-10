@@ -1,0 +1,85 @@
+{
+  "started_at": "2026-11-10T13:40:08.316227+00:00",
+  "base": "https://iam.lab.test",
+  "scope": "Real HTTPS, Keycloak authorization-code+PKCE, Flask, PostgreSQL; no browser UI test",
+  "checks": [
+    {
+      "name": "HTTPS readiness",
+      "passed": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "name": "OIDC issuer",
+      "passed": true,
+      "detail": "external issuer matches"
+    },
+    {
+      "name": "PKCE client configuration",
+      "passed": true,
+      "detail": "S256 required; password grant disabled for browser client"
+    },
+    {
+      "name": "OIDC operator",
+      "passed": true,
+      "detail": "authorization code + PKCE; HTTP 200; token TTL 120"
+    },
+    {
+      "name": "OIDC viewer",
+      "passed": true,
+      "detail": "authorization code + PKCE; HTTP 200; token TTL 120"
+    },
+    {
+      "name": "Anonymous read denied",
+      "passed": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "name": "Tampered token denied",
+      "passed": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "name": "Viewer write denied",
+      "passed": true,
+      "detail": "HTTP 403"
+    },
+    {
+      "name": "Create user",
+      "passed": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "name": "Read created user",
+      "passed": true,
+      "detail": "created object found in managed list"
+    },
+    {
+      "name": "Update and reread",
+      "passed": true,
+      "detail": "new attribute persisted; unchanged name and email preserved"
+    },
+    {
+      "name": "Disable user",
+      "passed": true,
+      "detail": "enabled=false; profile attributes preserved"
+    },
+    {
+      "name": "Unmanaged account protected",
+      "passed": true,
+      "detail": "HTTP 404 for QA viewer without managed marker"
+    },
+    {
+      "name": "Delete user",
+      "passed": true,
+      "detail": "delete succeeded; reread HTTP 404"
+    },
+    {
+      "name": "Audit persisted",
+      "passed": true,
+      "detail": "four CRUD operations persisted; viewer can read audit"
+    }
+  ],
+  "passed": true,
+  "cleanup_errors": [],
+  "finished_at": "2026-11-10T13:40:09.460527+00:00"
+}
